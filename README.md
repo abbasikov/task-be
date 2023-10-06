@@ -2,7 +2,7 @@
 
 ## Run on Local Machine
 
-### Depenndencies:
+### Dependencies:
 1. NodeJS
 2. PostgreSQL
 
