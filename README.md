@@ -28,3 +28,13 @@ DB_HOST=
 DB_PORT=
 DB_PASSWORD=
 ```
+### Running Migrations
+Set the values in `db/config/config.js` for the database credentials and run:
+```
+npm run migrate
+```
+### Running the Server
+Run the server by:
+```
+npm run start:dev
+```

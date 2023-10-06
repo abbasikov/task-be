@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon index.js",
+    "migrate": "npx sequelize db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,7 +19,8 @@
     "morgan": "^1.10.0",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "sequelize-cli": "^6.6.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",

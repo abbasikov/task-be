@@ -5,9 +5,14 @@ const logger = require('../utils/logger');
 const connectToDB = async () => {
   try {
     const sequelize = new Sequelize(DB_URI, {
-      logging: isDevelopEnv ? console.log : false
+      logging: isDevelopEnv ? console.log : false,
+      define: {
+        timestamps: true,
+        freezeTableName: true
+      }
     });
     await sequelize.authenticate();
+    global.sequelize = sequelize;
     logger.success('Connected successfully to DB!');
   } catch (err) {
     logger.error('Cannot connect to DB!');
