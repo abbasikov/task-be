@@ -17,6 +17,9 @@ const userSchema = new Schema({
   },
   shareableToken: {
     type: String
+  },
+  profileImgURL: {
+    type: String
   }
 });
 

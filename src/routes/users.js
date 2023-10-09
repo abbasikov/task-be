@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads' });
 const {
   afterMiddlewareLoader,
   responseSender
@@ -8,7 +10,8 @@ const {
   addProfileInfo,
   addLinks,
   getShareableToken,
-  getUserData
+  getUserData,
+  uploadProfileImage
 } = require('../controllers/users');
 
 router.post(
@@ -39,6 +42,15 @@ router.get(
   '/get-user-data',
   afterMiddlewareLoader,
   getUserData,
+  errorHandler,
+  responseSender
+);
+
+router.post(
+  '/upload-profile-img',
+  upload.single('image'),
+  afterMiddlewareLoader,
+  uploadProfileImage,
   errorHandler,
   responseSender
 );

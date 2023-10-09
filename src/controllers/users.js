@@ -1,3 +1,7 @@
+const randomstring = require('randomstring');
+const cloudinary = require('cloudinary').v2;
+const path = require('path');
+
 const {
   SERVER_ERROR_500,
   BAD_REQUEST_400,
@@ -5,7 +9,6 @@ const {
 } = require('../utils/httpStatus');
 const User = require('../models/user');
 const { addProfileInfoValidator } = require('../joiValidators/user');
-const randomstring = require('randomstring');
 
 const addProfileInfo = async (req, res, next) => {
   try {
@@ -16,7 +19,7 @@ const addProfileInfo = async (req, res, next) => {
         code: BAD_REQUEST_400
       });
     }
-    const { userId, firstName, lastName, email } = value;
+    const { userId, firstName, lastName, email, profileImgURL } = value;
     let newUser;
     if (userId) {
       newUser = await User.findOneAndUpdate(
@@ -24,7 +27,8 @@ const addProfileInfo = async (req, res, next) => {
         {
           firstName,
           lastName,
-          email
+          email,
+          profileImgURL
         },
         {
           new: true
@@ -37,7 +41,12 @@ const addProfileInfo = async (req, res, next) => {
         });
       }
     } else {
-      newUser = await User.create({ firstName, lastName, email });
+      newUser = await User.create({
+        firstName,
+        lastName,
+        email,
+        profileImgURL
+      });
     }
     res.response({
       id: newUser.id,
@@ -154,8 +163,32 @@ const getUserData = async (req, res, next) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        links: user.links
+        links: user.links,
+        profileImgURL: user.profileImgURL
       }
+    });
+    next();
+  } catch (err) {
+    console.log(err);
+    next({
+      code: SERVER_ERROR_500,
+      error: 'Internal Server Error!'
+    });
+  }
+};
+
+const uploadProfileImage = async (req, res, next) => {
+  try {
+    if (!req.file)
+      return next({
+        error: 'Image Not Provided!',
+        code: BAD_REQUEST_400
+      });
+    const result = await cloudinary.uploader.upload(
+      path.join(__dirname, '..', '..', req.file.path)
+    );
+    res.response({
+      imgURL: result.secure_url
     });
     next();
   } catch (err) {
@@ -171,5 +204,6 @@ module.exports = {
   addProfileInfo,
   addLinks,
   getShareableToken,
-  getUserData
+  getUserData,
+  uploadProfileImage
 };

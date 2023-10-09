@@ -5,6 +5,7 @@ const addProfileInfoValidator = (data) => {
   const schema = Joi.object({
     firstName: Joi.string().required().not().empty(),
     lastName: Joi.string().required().not().empty(),
+    profileImgURL: Joi.string().required().not().empty(),
     email: Joi.string().required().pattern(emailRegex).not().empty().messages({
       'string.pattern.base': '"email" is not valid'
     }),
