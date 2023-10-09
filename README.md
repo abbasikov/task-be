@@ -4,7 +4,7 @@
 
 ### Dependencies:
 1. NodeJS
-2. PostgreSQL
+2. MongoDB
 
 
 ### Installing Project Dependencies
@@ -22,16 +22,6 @@ PORT=
 
 # Database
 DB_URI=
-DB_USER=
-DB_NAME=
-DB_HOST=
-DB_PORT=
-DB_PASSWORD=
-```
-### Running Migrations
-Set the values in `db/config/config.js` for the database credentials and run:
-```
-npm run migrate
 ```
 ### Running the Server
 Run the server by:
