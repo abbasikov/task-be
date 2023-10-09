@@ -22,7 +22,12 @@ PORT=
 
 # Database
 DB_URI=
+
+# Cloudinary
+CLOUDINARY_URL=
 ```
+You can get the Cloudinary URL from the Cloudinary Dashboard.
+A test URL can be provided on asking.
 ### Running the Server
 Run the server by:
 ```
